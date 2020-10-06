@@ -21,27 +21,27 @@ shapeList <-  unlist(lapply(str_split(basename(shpfilenames),".shp"),function(x)
     shapeName <- unlist(lapply(str_split(basename(shpfilenames[i]),".shp"),function(x) x[1]))
     # Convert to SpatialPointsdataframe
     shapeWGS <- spTransform(shape, CRS("+proj=longlat +ellps=WGS84 +datum=WGS84"))  
-    plot(shapeWGS)
+    #plot(shapeWGS)
     # Subset to Eastern North Pacific 
     #shapeWGS <- subset(shapeWGS, Ocean == "North Pacific Ocean") %>% 
     #shapeWGS <- raster::crop(shapeWGS, extent(-130.36, -115.80, 29.5, 50.00))
     if(!is.null(shapeWGS)){
       plot(shapeWGS, main = shapeList[i])
-      save(shapeWGS,file=paste0("ENP_",shapeList[i],".RData"))
+      save(shapeWGS,file=paste0(shapeList[i],".RData"))
       # create CSV dataframe
-      tryCatch(expr={
-        shapeDF <- as.data.frame(shapeWGS)
-        shapeDF <- dplyr::select(shapeDF, coords.x1,coords.x2,coords.x3)
-        colnames(shapeDF) <- c("Long","Lat","Depth")
-      }, error = function(e){
-        shapeDF <- as.data.frame(shapeWGS)
-      }
-      )
-      write.csv(shapeDF,file=paste0(shapeList[i],".csv"))
-
-      
-      
-      # Export to KML
+      # tryCatch(expr={
+      #   shapeDF <- as.data.frame(shapeWGS)
+      #   shapeDF <- dplyr::select(shapeDF, coords.x1,coords.x2,coords.x3)
+      #   colnames(shapeDF) <- c("Long","Lat","Depth")
+      # }, error = function(e){
+      #   shapeDF <- as.data.frame(shapeWGS)
+      # }
+      # )
+      # write.csv(shapeDF,file=paste0(shapeList[i],".csv"))
+      # 
+      # 
+      # 
+      # # Export to KML
       writeOGR(shapeWGS, dsn=paste0("ENP_",shapeList[i],".kml"), layer = 'SpatialPolygons'  ,driver="KML",overwrite_layer=TRUE)
     }
   }
