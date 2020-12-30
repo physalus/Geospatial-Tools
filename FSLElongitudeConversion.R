@@ -8,7 +8,7 @@ print(ncinFSLE)
 
 lonFSLE <- ncvar_get(ncinFSLE, "lon")
 nlonFSLE <- dim(lonFSLE)
-latFLSE <- ncvar_get(ncinFSLE, "lat", verbose = F)
+latFSLE <- ncvar_get(ncinFSLE, "lat", verbose = F)
 nlatFSLE <- dim(latFSLE)
 lon180 <- lonFSLE-360
 # put the 18 degree longitude into NC
