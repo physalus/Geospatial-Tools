@@ -7,7 +7,7 @@ library(stringr)
 # Clip all data to the extent of the HF Radar Data
 # bbox = c(49.9920,30.2500,-130.3600,-115.8055)
 
-shpfilename <- file.choose() #"C:\\Users\\Musculus\\Documents\\R\\SurfaceCurrents\\data\\bluehabitatfeatures\\Abyss.shp"
+shpfilename <- file.choose() 
 shppathChoice <- dirname(shpfilename)
 # This imports all GPS.csv files in the directory chosen
 shpfilenames <- list.files(path = shppathChoice, pattern = "*.shp", all.files = FALSE, full.names = TRUE, recursive = FALSE, ignore.case = TRUE)
@@ -38,11 +38,8 @@ shapeList <-  unlist(lapply(str_split(basename(shpfilenames),".shp"),function(x)
       # }
       # )
       # write.csv(shapeDF,file=paste0(shapeList[i],".csv"))
-      # 
-      # 
-      # 
       # # Export to KML
-      writeOGR(shapeWGS, dsn=paste0("ENP_",shapeList[i],".kml"), layer = 'SpatialPolygons'  ,driver="KML",overwrite_layer=TRUE)
+      writeOGR(shapeWGS, dsn=paste0(shapeList[i],".kml"), layer = 'SpatialPolygons'  ,driver="KML",overwrite_layer=TRUE)
     }
   }
 rm(shpfilename,shppathChoice,shpfilenames,shapeList) # clean up
