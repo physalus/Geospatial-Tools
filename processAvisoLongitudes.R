@@ -28,7 +28,7 @@ avisoList <-  unlist(lapply(str_split(basename(avisofilenames),".nc"),function(x
     # Convert Longitude
     lonFSLE <- ncvar_get(ncinFSLE, "lon")
     lon180 <- lonFSLE-360
-    # put the 18 degree longitude into NC
+    # put the 180 degree longitude into NC
     ncvar_put(ncinFSLE,"lon",lon180)
     #close the file to commit changes
     nc_close(ncinFSLE)
